@@ -15,7 +15,7 @@ interface UseGitHubUsersResult {
   loading: boolean;
 }
 
-const apiUrl = process.env.REACT_APP_GITHUB_API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const useGitHubUsers = (): UseGitHubUsersResult => {
   const [users, setUsers] = useState<GitHubUser[]>([]);
@@ -23,25 +23,23 @@ const useGitHubUsers = (): UseGitHubUsersResult => {
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchData = async (pageNumber: number, query: string ) =>{
+  const fetchData = async (pageNumber: number, query: string) => {
     setLoading(true);
     try {
-      let response;
-      if (query === '') {
-        response = await fetch(`${apiUrl}/users?per_page=12&since=${pageNumber * 13}`);
-      } else {
-        response = await fetch(`${apiUrl}/search/users?q=${query}&per_page=10&page=${pageNumber}`);
-      }
-  
+      const response = await fetch(`${apiUrl}/api/users?q=${query}&page=${pageNumber}`);
       const data = await response.json();
-      return query === '' ? data : data?.items || [];
+      return data;
+
     } catch (error) {
       console.error('Error fetching data:', error);
       return [];
-    } finally {
-      setLoading(false);
     }
-  };
+    finally {
+      {
+        setLoading(false);
+      }
+    }
+  }
 
 
 

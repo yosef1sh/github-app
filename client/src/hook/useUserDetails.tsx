@@ -5,13 +5,15 @@ interface Repository {
     name: string;
     description: string;
     html_url: string;
-  }
+}
 
 interface Friend {
     id: number;
     login: string;
     avatar_url: string;
 }
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const useUserDetails = (id: string) => {
     const [user, setUser] = useState<any>();
@@ -29,9 +31,9 @@ const useUserDetails = (id: string) => {
         if (user && hasMoreRepos) {
             try {
                 setRepoLoading(true)
-                const response = await fetch(`https://api.github.com/users/${user.login}/repos?page=${pageNumber}`);
+                const response = await fetch(`${apiUrl}/api/users/profile/repo/${user.login}?page=${pageNumber}`);
                 const repos = await response.json();
-    
+
                 if (Array.isArray(repos)) {
                     console.log(repos);
                     setRepositories((prevRepos) => [...prevRepos, ...repos]);
@@ -47,19 +49,19 @@ const useUserDetails = (id: string) => {
             setRepoLoading(false);
         }
     };
-    
+
 
     const fetchFriends = async (pageNumber: number) => {
         if (user && hasMoreFriends) {
             try {
                 setFriendLoading(true);
-                const response = await fetch(`https://api.github.com/users/${user.login}/followers?page=${pageNumber}`);
+                const response = await fetch(`${apiUrl}/api/users/profile/followers/${user.login}/?page=${pageNumber}`);
                 const friends = await response.json();
-    
+
                 if (Array.isArray(friends)) {
                     console.log(friends);
                     setFriends((prevFriends) => [...prevFriends, ...friends]);
-                    setFriendPage(friendPage+ 1);
+                    setFriendPage(friendPage + 1);
                     setHasMoreFriends(friends.length > 10);
                 } else {
                     // Handle the case where the response is not an array
@@ -68,14 +70,14 @@ const useUserDetails = (id: string) => {
             } catch (error) {
                 console.error('Error fetching friends:', error);
             }
-            setFriendLoading(false); 
+            setFriendLoading(false);
         }
     };
 
     const fetchUser = async () => {
         try {
             setUserLoading(true);
-            const response = await fetch(`https://api.github.com/users/${id}`);
+            const response = await fetch(`${apiUrl}/api/users/profile/${id}`);
             const user = await response.json();
             console.log(user);
             setUser(user);

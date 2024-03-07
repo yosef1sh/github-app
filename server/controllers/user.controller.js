@@ -1,98 +1,113 @@
 const fetch = require('node-fetch');
 
 const getUsers = async (req, res) => {
-  try {
-    const { pageNumber, query } = req.params;
+	try {
+		const { page, query } = req.query;
 
-    const url = query !== null && query !== ''
-      ? `https://api.github.com/search/users?q=${query}&per_page=10&page=${pageNumber}`
-      : `https://api.github.com/users?per_page=10&since=${pageNumber * 11}`;
+		if (isNaN(page)) {
+			res.status(400).json({ error: 'Invalid page' });
+			return;
+		}
 
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `token ${process.env.GITHUB_API_KEY}`,
-      },
-    });
+		const url = query && query !== ''
+			? `https://api.github.com/search/users?q=${query}&per_page=10&page=${page}`
+			: `https://api.github.com/users?per_page=10&since=${page * 11}`;
 
-    const data = await response.json();
+		const response = await fetch(url, {
+			headers: {
+				Authorization: `token ${process.env.GITHUB_API_KEY}`,
+			},
+		});
 
-    const responseData = query === '' ? data : data.items || [];
+		const data = await response.json();
 
-    res.status(200).json({ users: responseData });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+		const responseData = (query && query !== '') ? data.items || [] : data;
+
+		res.status(200).json( responseData );
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 };
 
 const getUserProfile = async (req, res) => {
-  try {
-    const { username } = req.params;
+	try {
+		const { username } = req.params;
 
-    const userRes = await fetch(`https://api.github.com/users/${username}`, {
-      headers: {
-        authorization: `token ${process.env.GITHUB_API_KEY}`,
-      },
-    });
+		const userRes = await fetch(`https://api.github.com/users/${username}`, {
+			headers: {
+				authorization: `token ${process.env.GITHUB_API_KEY}`,
+			},
+		});
 
-    const userProfile = await userRes.json();
+		const userProfile = await userRes.json();
 
-    res.status(200).json({ userProfile });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+		res.status(200).json(userProfile );
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 };
 
 const getUserRepo = async (req, res) => {
-  try {
-    const { username } = req.params;
-    const { page } = req.query;
+	try {
+		const { username } = req.params;
+		const { page } = req.query;
 
-    const response = await fetch(`https://api.github.com/users/${username}/repos?page=${page}`, {
-      headers: {
-        Authorization: `token ${process.env.GITHUB_API_KEY}`,
-      },
-    });
+		if (isNaN(page)) {
+			res.status(400).json({ error: 'Invalid pageNumber' });
+			return;
+		}
 
-    if (response.status === 404) {
-      res.status(404).json({ error: 'User not found' });
-      return;
-    }
+		const response = await fetch(`https://api.github.com/users/${username}/repos?page=${page}`, {
+			headers: {
+				Authorization: `token ${process.env.GITHUB_API_KEY}`,
+			},
+		});
 
-    const repositories = await response.json();
+		if (response.status === 404) {
+			res.status(404).json({ error: 'User not found' });
+			return;
+		}
 
-    res.status(200).json({ repositories });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+		const repositories = await response.json();
+
+		res.status(200).json(repositories );
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 };
 
 const getUserFollowers = async (req, res) => {
-  try {
-    const { username } = req.params;
-    const { page } = req.query;
+	try {
+		const { username } = req.params;
+		const { page } = req.query;
 
-    const response = await fetch(`https://api.github.com/users/${username}/followers?page=${page}`, {
-      headers: {
-        Authorization: `token ${process.env.GITHUB_API_KEY}`,
-      },
-    });
+		if (isNaN(page)) {
+			res.status(400).json({ error: 'Invalid pageNumber' });
+			return;
+		}
 
-    if (response.status === 404) {
-      res.status(404).json({ error: 'User not found' });
-      return;
-    }
+		const response = await fetch(`https://api.github.com/users/${username}/followers?page=${page}`, {
+			headers: {
+				Authorization: `token ${process.env.GITHUB_API_KEY}`,
+			},
+		});
 
-    const followers = await response.json();
+		if (response.status === 404) {
+			res.status(404).json({ error: 'User not found' });
+			return;
+		}
 
-    res.status(200).json({ followers });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+		const followers = await response.json();
+
+		res.status(200).json(followers );
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 };
 
 module.exports = {
-  getUsers,
-  getUserProfile,
-  getUserRepo,
-  getUserFollowers,
+	getUsers,
+	getUserProfile,
+	getUserRepo,
+	getUserFollowers,
 };
