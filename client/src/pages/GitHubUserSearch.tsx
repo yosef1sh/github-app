@@ -30,7 +30,7 @@ function GitHubUserSearch() {
                 next={() => fetchAndSetData(page, query)}
                 hasMore={hasMore}
                 loader={<LoaderComponent loading={loading} />}>
-                <div style={{ display: 'flex', flex: 'wrap' ,width: '40%', marginLeft: '30%' }}>
+                <div style={{ display: 'flex', flex: 'wrap' ,width: '60%', marginLeft: '20%' }}>
                     <UserList users={users} />
                 </div>
             </InfiniteScroll>

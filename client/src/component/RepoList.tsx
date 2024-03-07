@@ -28,10 +28,6 @@ const RepoList: React.FC<RepositoriesProps> = ({ repositories, fetchRepositories
 
   const handleShowFullList = () => {
     setShowFullList(true);
-    // Fetch additional repositories if needed
-    if (hasMoreRepos) {
-      fetchRepositories(repoPage);
-    }
   };
 
   return (

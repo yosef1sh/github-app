@@ -9,7 +9,6 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
         <ThemeContextProvider>
         <StyledEngineProvider injectFirst>
     <BrowserRouter >
@@ -17,6 +16,5 @@ root.render(
     </BrowserRouter>
     </StyledEngineProvider>
     </ThemeContextProvider>
-  </React.StrictMode>
 );
 

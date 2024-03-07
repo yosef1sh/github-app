@@ -27,10 +27,6 @@ const FriendsList: React.FC<FriendsProps> = ({ friends, fetchFriends, friendPage
 
   const handleShowFullList = () => {
     setShowFullList(true);
-    // Fetch additional friends if needed
-    if (hasMoreFriends) {
-      fetchFriends(friendPage);
-    }
   };
 
   return (

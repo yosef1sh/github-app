@@ -19,8 +19,8 @@ const useUserDetails = (id: string) => {
     const [user, setUser] = useState<any>();
     const [repositories, setRepositories] = useState<Repository[]>([]);
     const [friends, setFriends] = useState<Friend[]>([]);
-    const [repoPage, setRepoPage] = useState<number>(1);
-    const [friendPage, setFriendPage] = useState<number>(1);
+    const [repoPage, setRepoPage] = useState<number>(0);
+    const [friendPage, setFriendPage] = useState<number>(0);
     const [hasMoreRepos, setHasMoreRepos] = useState<boolean>(true);
     const [hasMoreFriends, setHasMoreFriends] = useState<boolean>(true);
     const [friendLoading, setFriendLoading] = useState<boolean>(false);
