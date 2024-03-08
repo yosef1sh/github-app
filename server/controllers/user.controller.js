@@ -1,16 +1,17 @@
 const fetch = require('node-fetch');
+const User = require('../models/user.model.js');
 
 const getUsers = async (req, res) => {
 	try {
-		const { page, query } = req.query;
+		const { page, q } = req.query;
 
 		if (isNaN(page)) {
 			res.status(400).json({ error: 'Invalid page' });
 			return;
 		}
 
-		const url = query && query !== ''
-			? `https://api.github.com/search/users?q=${query}&per_page=10&page=${page}`
+		const url = q && q !== ''
+			? `https://api.github.com/search/users?q=${q}&per_page=10&page=${page}`
 			: `https://api.github.com/users?per_page=10&since=${page * 11}`;
 
 		const response = await fetch(url, {
@@ -21,7 +22,7 @@ const getUsers = async (req, res) => {
 
 		const data = await response.json();
 
-		const responseData = (query && query !== '') ? data.items || [] : data;
+		const responseData = (q && q !== '') ? data.items || [] : data;
 
 		res.status(200).json( responseData );
 	} catch (error) {
@@ -104,10 +105,32 @@ const getUserFollowers = async (req, res) => {
 		res.status(500).json({ error: error.message });
 	}
 };
+const likeProfile = async (req, res) => {
+	try {
+		const { username } = req.params;
+		console.log(req.body);
+		const { avatarUrl } = req.body; 
+
+		const user = await User.findById(req.user._id.toString());
+		console.log(user, "auth user");
+
+		if (user.likedProfiles.includes(username)) {
+			return res.status(400).json({ error: "User already liked" });
+		}
+
+		user.likedProfiles.push({ username, avatarUrl  });
+		await user.save();
+
+		res.status(200).json({ message: "User liked" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
 
 module.exports = {
 	getUsers,
 	getUserProfile,
 	getUserRepo,
 	getUserFollowers,
+	likeProfile
 };

@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import LikeButton from './LikeButton';
 
 interface UserDetailsProps {
   user: {
@@ -34,6 +35,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
             <Typography variant="body1">Location: {user?.location}</Typography>
           </Grid>
         </Grid>
+        <LikeButton avatarUrl={user?.avatar_url} username={user?.login} ></LikeButton>
       </Paper>
     );
   };
