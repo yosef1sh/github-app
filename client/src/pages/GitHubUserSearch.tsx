@@ -10,7 +10,7 @@ function GitHubUserSearch() {
     const { users, hasMore, fetchAndSetData, page, resetUsers,loading } = useGitHubUsers();
     const [query, setQuery] = useState('');
 
-    const debouncedFetchData = _debounce((pageNumber, query) => fetchAndSetData(pageNumber, query), 500);
+    const debouncedFetchData = _debounce((pageNumber, query) => fetchAndSetData(pageNumber, query), 1000);
 
     useEffect(() => {
         resetUsers();

@@ -7,12 +7,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import LoaderComponent from './Loader';
+import Friend from '../interface/Friend';
 
-interface Friend {
-  id: number;
-  login: string;
-  avatar_url: string;
-}
 
 interface FriendsProps {
   friends: Friend[];

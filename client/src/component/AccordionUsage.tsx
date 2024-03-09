@@ -5,13 +5,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
+import Repository from '../interface/Repository';
 
-interface Repository {
-  id: number;
-  name: string;
-  description: string;
-  html_url: string;
-}
 
 interface AccordionUsageProps {
     repositories: Repository[] | null;

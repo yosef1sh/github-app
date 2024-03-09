@@ -5,24 +5,9 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
-
-interface User {
-  id: number;
-  login: string;
-  avatar_url: string;
-}
-
-interface LikedProfile {
-  id: number;
-  username: string;
-  avatarUrl: string;
-}
-
-interface Friend {
-  id: number;
-  login: string;
-  avatar_url: string;
-}
+import User from '../interface/User';
+import Friend from '../interface/Friend';
+import LikedProfile from '../interface/LikedProfile';
 
 type UserListProps = {
   users: (User | Friend | LikedProfile)[];

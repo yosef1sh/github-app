@@ -1,17 +1,6 @@
 import { useState, useEffect } from 'react';
-
-interface Repository {
-    id: number;
-    name: string;
-    description: string;
-    html_url: string;
-}
-
-interface Friend {
-    id: number;
-    login: string;
-    avatar_url: string;
-}
+import Repository from '../interface/Repository';
+import Friend from '../interface/Friend';
 
 
 const useUserDetails = (id: string) => {

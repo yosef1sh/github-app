@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
 interface AuthUser {
-  // Define your AuthUser type here based on your actual data structure
+
 }
 
 interface AuthContextProps {

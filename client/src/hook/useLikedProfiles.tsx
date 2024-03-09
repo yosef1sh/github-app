@@ -27,7 +27,7 @@ const useLikedProfiles = ({ apiUrl }: UseLikedProfilesProps): UseLikedProfilesRe
       if (response.ok) {
         const data = await response.json();
         setLikedProfiles(data.likedProfiles);
-        setTotalPages(Math.ceil(data.totalProfiles / 10)); // Assuming pageSize is 10
+        setTotalPages(Math.ceil(data.totalProfiles / 9)); 
       } else {
         console.error('Error fetching liked profiles:', response.statusText);
       }

@@ -24,7 +24,7 @@ const getUsers = async (req, res) => {
 
 		const responseData = (q && q !== '') ? data.items || [] : data;
 
-		res.status(200).json( responseData );
+		res.status(200).json(responseData);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -42,7 +42,7 @@ const getUserProfile = async (req, res) => {
 
 		const userProfile = await userRes.json();
 
-		res.status(200).json(userProfile );
+		res.status(200).json(userProfile);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -71,7 +71,7 @@ const getUserRepo = async (req, res) => {
 
 		const repositories = await response.json();
 
-		res.status(200).json(repositories );
+		res.status(200).json(repositories);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -100,7 +100,7 @@ const getUserFollowers = async (req, res) => {
 
 		const followers = await response.json();
 
-		res.status(200).json(followers );
+		res.status(200).json(followers);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -109,16 +109,16 @@ const likeProfile = async (req, res) => {
 	try {
 		const { username } = req.params;
 		console.log(req.body);
-		const { avatarUrl } = req.body; 
+		const { avatarUrl } = req.body;
 
 		const user = await User.findById(req.user._id.toString());
 		console.log(user, "auth user");
 
 		if (user.likedProfiles.some((profile) => profile.username === username)) {
-			return res.status(400).json({ error: "ALREADY_LIKED"});
-		  }
+			return res.status(400).json({ error: "ALREADY_LIKED" });
+		}
 
-		user.likedProfiles.push({ username, avatarUrl  });
+		user.likedProfiles.push({ username, avatarUrl });
 		await user.save();
 
 		res.status(200).json({ message: "User liked" });
@@ -129,25 +129,25 @@ const likeProfile = async (req, res) => {
 
 const getLikedProfiles = async (req, res) => {
 	try {
-	  const { page } = req.query;
-	  const pageSize = 10; // Adjust the page size as needed
-  
-	  if (isNaN(page)) {
-		return res.status(400).json({ error: 'Invalid page number' });
-	  }
-  
-	  const user = await User.findById(req.user._id.toString());
-  
-	  const startIndex = (page - 1) * pageSize;
-	  const endIndex = page * pageSize;
-  
-	  const paginatedLikedProfiles = user.likedProfiles.slice(startIndex, endIndex);
-  
-	  res.status(200).json({ likedProfiles: paginatedLikedProfiles, totalProfiles: user.likedProfiles.length });
+		const { page } = req.query;
+		const pageSize = 9;
+
+		if (isNaN(page)) {
+			return res.status(400).json({ error: 'Invalid page number' });
+		}
+
+		const user = await User.findById(req.user._id.toString());
+
+		const startIndex = (page - 1) * pageSize;
+		const endIndex = page * pageSize;
+
+		const paginatedLikedProfiles = user.likedProfiles.slice(startIndex, endIndex);
+
+		res.status(200).json({ likedProfiles: paginatedLikedProfiles, totalProfiles: user.likedProfiles.length });
 	} catch (error) {
-	  res.status(500).json({ error: error.message });
+		res.status(500).json({ error: error.message });
 	}
-  };
+};
 
 module.exports = {
 	getUsers,

@@ -7,13 +7,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import LoaderComponent from './Loader';
-
-interface Repository {
-  id: number;
-  name: string;
-  description: string;
-  html_url: string;
-}
+import Repository from '../interface/Repository';
 
 interface RepositoriesProps {
   repositories: Repository[] | null;

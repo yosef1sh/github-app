@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
+import GitHubUser from '../interface/GitHubUser';
 
-interface GitHubUser {
-  id: number;
-  login: string;
-  avatar_url: string;
-}
 
 interface UseGitHubUsersResult {
   users: GitHubUser[];
