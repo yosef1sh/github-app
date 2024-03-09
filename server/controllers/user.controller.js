@@ -114,9 +114,9 @@ const likeProfile = async (req, res) => {
 		const user = await User.findById(req.user._id.toString());
 		console.log(user, "auth user");
 
-		if (user.likedProfiles.includes(username)) {
-			return res.status(400).json({ error: "User already liked" });
-		}
+		if (user.likedProfiles.some((profile) => profile.username === username)) {
+			return res.status(400).json({ error: "ALREADY_LIKED"});
+		  }
 
 		user.likedProfiles.push({ username, avatarUrl  });
 		await user.save();
@@ -127,10 +127,33 @@ const likeProfile = async (req, res) => {
 	}
 };
 
+const getLikedProfiles = async (req, res) => {
+	try {
+	  const { page } = req.query;
+	  const pageSize = 10; // Adjust the page size as needed
+  
+	  if (isNaN(page)) {
+		return res.status(400).json({ error: 'Invalid page number' });
+	  }
+  
+	  const user = await User.findById(req.user._id.toString());
+  
+	  const startIndex = (page - 1) * pageSize;
+	  const endIndex = page * pageSize;
+  
+	  const paginatedLikedProfiles = user.likedProfiles.slice(startIndex, endIndex);
+  
+	  res.status(200).json({ likedProfiles: paginatedLikedProfiles, totalProfiles: user.likedProfiles.length });
+	} catch (error) {
+	  res.status(500).json({ error: error.message });
+	}
+  };
+
 module.exports = {
 	getUsers,
 	getUserProfile,
 	getUserRepo,
 	getUserFollowers,
-	likeProfile
+	likeProfile,
+	getLikedProfiles
 };

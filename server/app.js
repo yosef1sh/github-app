@@ -6,7 +6,6 @@ const userRoutes = require("./routes/users.js");
 const authRoutes = require("./routes/auth.js");
 const connectMongoDB = require("./db/connectMongoDB.js");
 var session = require("express-session");
-var path = require("path");
 require("./passport/github.auth.js");
 
 const app = express();

@@ -31,8 +31,9 @@ const NavigationBar: React.FC = () => {
         <AppBar style={{ background: 'white' }} position="static">
             <Toolbar>
                 <Tabs >
-                    <Tab style={{ background: 'grey' }} label="Home" value="/users" component={Link} to="/users" />
-                    <Tab style={{ background: 'grey' }} label={authUser ? 'Logout' : 'Login'} onClick={handleChange} />
+                    <Tab style={{ color: 'grey' }} label="Home" value="/users" component={Link} to="/users" />
+                    <Tab style={{ color: 'grey' }} label={authUser ? 'Logout' : 'Login'} onClick={handleChange} />
+                    <Tab style={{ color: 'grey' }} label={'Liked Profiles' } value="/likedProfiles" component={Link}   to={authUser ? '/likedProfiles' : '/login'} />
                 </Tabs>
                 <DarkMode />
             </Toolbar>

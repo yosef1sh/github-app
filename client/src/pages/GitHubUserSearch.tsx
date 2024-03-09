@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import _debounce from 'lodash/debounce';
-import useGitHubUsers from '../hook/UseGitHubUsers';
+import useGitHubUsers from '../hook/useGitHubUsers';
 import UserList from '../component/UserList';
 import SearchAppBar from '../component/SearchAppBar';
 import LoaderComponent from '../component/Loader';
 
 function GitHubUserSearch() {
     const { users, hasMore, fetchAndSetData, page, resetUsers,loading } = useGitHubUsers();
-    const [query, setQuery] = useState('a');
+    const [query, setQuery] = useState('');
 
     const debouncedFetchData = _debounce((pageNumber, query) => fetchAndSetData(pageNumber, query), 500);
 

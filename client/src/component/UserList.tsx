@@ -4,59 +4,61 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
-import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 
 interface User {
-    id: number;
-    login: string;
-    avatar_url: string;
+  id: number;
+  login: string;
+  avatar_url: string;
+}
+
+interface LikedProfile {
+  id: number;
+  username: string;
+  avatarUrl: string;
 }
 
 interface Friend {
-    id: number;
-    login: string;
-    avatar_url: string;
+  id: number;
+  login: string;
+  avatar_url: string;
 }
 
 type UserListProps = {
-    users: (User | Friend)[];
+  users: (User | Friend | LikedProfile)[];
 };
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
-    return (
-        <Grid container spacing={4}>
-            {users.map((user) => (
-                <Grid item key={user.id} md={4}>
-                    <Card sx={{ maxWidth: 500, margin: '12px' }}>
-                        <>
-                            <CardMedia
-                                component="img"
-                                image={`${user.avatar_url}?w=100&fit=crop&auto=format&dpr=2`}
-                                alt={user.login}
-                            />
-                        </>
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                                {user.login}
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <a href={`/user/${user.login}`} style={{
-                                width: '100%',
-                                color: 'grey',
-                            }}>
-                                Visit profile
-                            </a>
-                        </CardActions>
-                    </Card>
-                </Grid>
-            ))}
+  return (
+    <Grid container spacing={4}>
+      {users.map((user) => (
+        <Grid item key={user.id} md={4}>
+          <Card sx={{ maxWidth: 500, margin: '12px' }}>
+            <>
+              <CardMedia
+                component="img"
+                image={`${(user as User).avatar_url || (user as LikedProfile).avatarUrl}?w=100&fit=crop&auto=format&dpr=2`}
+                alt={(user as User).login || (user as LikedProfile).username}
+              />
+            </>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {(user as User).login || (user as LikedProfile).username}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <a href={`/user/${(user as User).login || (user as LikedProfile).username}`} style={{
+                width: '100%',
+                color: 'grey',
+              }}>
+                Visit profile
+              </a>
+            </CardActions>
+          </Card>
         </Grid>
-    );
+      ))}
+    </Grid>
+  );
 };
 
 export default UserList;
