@@ -1,6 +1,6 @@
 # Project README
 
-[Watch the Project Demo on YouTube]([https://www.youtube.com/h9Fz_C-JRxo](https://youtu.be/h9Fz_C-JRxo))
+[Watch the Project Demo on YouTube](https://youtu.be/h9Fz_C-JRxo)
 
 ## Overview
 
