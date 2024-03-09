@@ -15,7 +15,7 @@ const useLikeButton = (username: string, avatarUrl: string, onLike?: () => void)
 
   const handleLike = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/like/${username}`, {
+      const response = await fetch(`/api/users/like/${username}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

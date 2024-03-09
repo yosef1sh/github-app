@@ -29,7 +29,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ childr
   useEffect(() => {
     const checkUserLoggedIn = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/check`, { credentials: 'include' });
+        const res = await fetch(`/api/auth/check`, { credentials: 'include' });
         const data = await res.json();
         setAuthUser(data.user);
       } catch (error) {

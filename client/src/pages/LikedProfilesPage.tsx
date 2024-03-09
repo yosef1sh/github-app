@@ -8,7 +8,7 @@ interface LikedProfilesPageProps {}
 
 const LikedProfilesPage: React.FC<LikedProfilesPageProps> = () => {
   const { likedProfiles, currentPage, totalPages, setCurrentPage, fetchLikedProfiles } = useLikedProfiles({
-    apiUrl: `${process.env.REACT_APP_API_URL}/api/users/likedProfiles`,
+    apiUrl: `/api/users/likedProfiles`,
   });
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, newPage: number) => {

@@ -15,7 +15,6 @@ interface UseGitHubUsersResult {
   loading: boolean;
 }
 
-const apiUrl = process.env.REACT_APP_API_URL;
 
 const useGitHubUsers = (): UseGitHubUsersResult => {
   const [users, setUsers] = useState<GitHubUser[]>([]);
@@ -26,7 +25,7 @@ const useGitHubUsers = (): UseGitHubUsersResult => {
   const fetchData = async (pageNumber: number, query: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`${apiUrl}/api/users?q=${query}&page=${pageNumber}`);
+      const response = await fetch(`/api/users?q=${query}&page=${pageNumber}`);
       const data = await response.json();
       return data;
 

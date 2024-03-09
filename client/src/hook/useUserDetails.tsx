@@ -13,7 +13,6 @@ interface Friend {
     avatar_url: string;
 }
 
-const apiUrl = process.env.REACT_APP_API_URL;
 
 const useUserDetails = (id: string) => {
     const [user, setUser] = useState<any>();
@@ -31,7 +30,7 @@ const useUserDetails = (id: string) => {
         if (user && hasMoreRepos) {
             try {
                 setRepoLoading(true)
-                const response = await fetch(`${apiUrl}/api/users/profile/repo/${user.login}?page=${pageNumber}`);
+                const response = await fetch(`/api/users/profile/repo/${user.login}?page=${pageNumber}`);
                 const repos = await response.json();
 
                 if (Array.isArray(repos)) {
@@ -55,7 +54,7 @@ const useUserDetails = (id: string) => {
         if (user && hasMoreFriends) {
             try {
                 setFriendLoading(true);
-                const response = await fetch(`${apiUrl}/api/users/profile/followers/${user.login}/?page=${pageNumber}`);
+                const response = await fetch(`/api/users/profile/followers/${user.login}/?page=${pageNumber}`);
                 const friends = await response.json();
 
                 if (Array.isArray(friends)) {
@@ -77,7 +76,7 @@ const useUserDetails = (id: string) => {
     const fetchUser = async () => {
         try {
             setUserLoading(true);
-            const response = await fetch(`${apiUrl}/api/users/profile/${id}`);
+            const response = await fetch(`/api/users/profile/${id}`);
             const user = await response.json();
             console.log(user);
             setUser(user);
