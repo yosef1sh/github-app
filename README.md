@@ -11,29 +11,30 @@ The application features GitHub authentication, user liked profiles with paginat
 
 Navigate to the `server` directory.
 
-Create a `.env` file with the following configuration:
-PORT= # Port on which the server will run
-GITHUB_API_KEY= # API key for accessing the GitHub API
-MONGO_URI= # MongoDB connection URI
-GITHUB_CLIENT_ID= # GitHub OAuth client ID
-GITHUB_CLIENT_SECRET= # GitHub OAuth client secret
-CLIENT_BASE_URL= # Base URL for the client application
-Install dependencies: npm install
-Start the backend server:npm start
+Create a `.env` file with the following configuration:  
+PORT= # Port on which the server will run  
+GITHUB_API_KEY= # API key for accessing the GitHub API  
+MONGO_URI= # MongoDB connection URI  
+GITHUB_CLIENT_ID= # GitHub OAuth client ID  
+GITHUB_CLIENT_SECRET= # GitHub OAuth client secret  
+CLIENT_BASE_URL= # Base URL for the client application  
 
-###  Frontend Setup
+Install dependencies: `npm install`  
+Start the backend server: `npm start`
+
+### Frontend Setup
+
 Navigate to the client directory.
 
-Install dependencies:npm install
-Start the frontend development server:npm start
+Install dependencies: `npm install`  
+Start the frontend development server: `npm start`  
 The frontend server will run on http://localhost:3000 by default.
 
-###  Features
--Explore GitHub profiles, repositories, and friends effortlessly.
--Enjoy a seamless and infinite scroll experience when exploring profiles, repositories, and friends.
--Log in with your GitHub account for personalized features.
--View a paginated list of profiles that you have liked.
--Like profiles when logged in to express your interest.
--Switch to dark mode for a visually comfortable experience.
+### Features
 
-
+- Explore GitHub profiles, repositories, and friends effortlessly.
+- Enjoy a seamless and infinite scroll experience when exploring profiles, repositories, and friends.
+- Log in with your GitHub account for personalized features.
+- View a paginated list of profiles that you have liked.
+- Like profiles when logged in to express your interest.
+- Switch to dark mode for a visually comfortable experience.
