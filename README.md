@@ -1,5 +1,7 @@
 # Project README
 
+[Watch the Project Demo on YouTube](https://www.youtube.com/h9Fz_C-JRxo)
+
 ## Overview
 
 This project is a GitHub explorer that allows users to interact with GitHub data, explore profiles, repositories, and friends, and even like their favorite profiles. 
